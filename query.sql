@@ -138,33 +138,55 @@ insert into Employee_user values(903,403,803);
 insert into Employee_user values(904,404,804);
 
 
+/******************************
+ **                          **
+ **      Some question       **
+ **                          **
+ ******************************/   
 
 
+/**1.	Display the manager details who joined after Muvin mahmud. **/
 
 select * from manager where start_date>(select start_date from manager where manager_name='Muvin mahmud')
+
+/**2.	Write a query to display the name, birth date and salary of any employee whose salary match salary of any employee who's a Male.**/
 
 select employee_name,employee_birth_date,employee_salary from employee 
 where employee_salary=ALL(select employee_salary from employee where employee_gender='M')
 
+/** 3.	Show all branch name and branch location from Branch and Branch_address.**/
+
 select branch_name,branch_location from branch JOIN branch_address
 On branch.br_id=branch_address.br_id
+
+/** 4.	Write a query to display the name, birth date and branch name for all employees who work in Paris Branch **/
 
 select employee_name,employee_birth_date,branch_name
 from employee JOIN branch
 ON employee.branch_id = branch.branch_id and 
 branch_name='Paris branch'
 
+/** 5.	Display the name and start date of manager. Order the query in ascending order by name. **/
+
 select manager_name,start_date from manager order by
 manager_name
+
+/** 6.	Display the name, gender and salary for all employees whose salary is greater than 10000. **/
 
 select employee_name,employee_gender,employee_salary 
 from employee 
 where employee_salary > 10000
 
+/**7.	Create a view called V_Emp based on the employee_id, employee_name, and employee_salary from the Employee table.**/
+
 create view v_emp as select employee_id,employee_name
 ,employee_salary from employee 
 
-select * from v_emp
+/** 8.	Using your view V_Emp, enter a query to display all employee names and employee_salary.**/
+
+	select employee_name, employee_salary from V_emp
+
+/** 9.	 Display the minimum salary of employees whose birth day is after 2000.**/
 
 select employee_salary from employee where employee_birth_date >'01-JAN-00'
 
